@@ -62,6 +62,10 @@ Bağımlılıkları yükleyin
 npm install
 ```
 
+## Çevresel Değişkenler
+
+Proje başlatılmadan önce, `.env` dosyasını oluşturmak için `.env.example` dosyasını kopyalayın ve içine kendi bilgilerinizi ekleyin.
+
 Geliştirme sunucusunu başlatın
 
 ```bash
