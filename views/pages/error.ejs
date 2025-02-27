@@ -1,0 +1,16 @@
+<%
+let currentPage = 'error';
+let pageSpecificCSS = 'error';
+%>
+<%- include('../partials/header') %>
+
+<div class="error-page">
+    <h1>Hata Oluştu</h1>
+    <p>Bir hata oluştu. Lütfen daha sonra tekrar deneyin.</p>
+    <% if (error && error.message) { %>
+        <p class="error-message"><%= error.message %></p>
+    <% } %>
+    <a href="/" class="btn btn-primary">Ana Sayfaya Dön</a>
+</div>
+
+<%- include('../partials/footer') %> 

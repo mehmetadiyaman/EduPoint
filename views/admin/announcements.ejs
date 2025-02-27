@@ -1,0 +1,180 @@
+<%- contentFor('title') %>Duyuru Yönetimi
+
+<%- contentFor('body') %>
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="header-left">
+            <h2>Duyuru Listesi</h2>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-primary" data-modal="addAnnouncementModal">
+                <i class="fas fa-plus"></i> Yeni Duyuru Ekle
+            </button>
+        </div>
+    </div>
+
+    <div class="announcements-grid">
+        <% announcements.forEach(announcement => { %>
+            <div class="announcement-card" data-id="<%= announcement._id %>">
+                <div class="announcement-header">
+                    <h3><%= announcement.title %></h3>
+                    <div class="announcement-badges">
+                        <% if (announcement.important) { %>
+                            <span class="badge badge-important">Önemli</span>
+                        <% } %>
+                        <% if (announcement.expiryDate) { %>
+                            <span class="badge badge-expiry">
+                                Son Tarih: <%= new Date(announcement.expiryDate).toLocaleDateString('tr-TR') %>
+                            </span>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="announcement-content">
+                    <% if (announcement.image) { %>
+                        <div class="announcement-image">
+                            <img src="<%= announcement.image %>" alt="<%= announcement.title %>">
+                        </div>
+                    <% } %>
+                    <div class="announcement-text">
+                        <p><%= announcement.content %></p>
+                    </div>
+                </div>
+
+                <div class="announcement-footer">
+                    <span class="date">
+                        <i class="fas fa-calendar"></i>
+                        <%= new Date(announcement.createdAt).toLocaleDateString('tr-TR') %>
+                    </span>
+                    <div class="announcement-actions">
+                        <button class="btn btn-edit" onclick="editAnnouncement('<%= announcement._id %>')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-delete" onclick="deleteAnnouncement('<%= announcement._id %>')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<!-- Duyuru Ekleme Modal -->
+<div id="addAnnouncementModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Yeni Duyuru Ekle</h2>
+            <span class="close">&times;</span>
+        </div>
+        <form id="addAnnouncementForm" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Başlık</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="content">İçerik</label>
+                <textarea id="content" name="content" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Görsel</label>
+                <input type="file" 
+                       id="image" 
+                       name="image" 
+                       accept="image/jpeg,image/png,image/gif"
+                       onchange="validateFile(this)">
+                <div class="upload-info">
+                    <div class="info-content">
+                        <h4>Dosya Yükleme Bilgileri:</h4>
+                        <ul>
+                            <li>İzin verilen formatlar: JPG, PNG, GIF</li>
+                            <li>Maksimum dosya boyutu: 5MB</li>
+                            <li>Önerilen boyutlar: 1000x1000px</li>
+                        </ul>
+                    </div>
+                </div>
+                <img id="image-preview" src="#" alt="Önizleme" style="display: none; max-width: 200px; margin-top: 10px;">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="important">
+                    Önemli Duyuru
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label for="expiryDate">Son Tarih (Opsiyonel)</label>
+                <input type="date" id="expiryDate" name="expiryDate">
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+                <button type="button" class="btn btn-secondary close">İptal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Duyuru Düzenleme Modal -->
+<div id="editAnnouncementModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Duyuru Düzenle</h2>
+            <span class="close">&times;</span>
+        </div>
+        <form id="editAnnouncementForm" enctype="multipart/form-data" onsubmit="return false;">
+            <input type="hidden" id="edit-id" name="id">
+            
+            <div class="form-group">
+                <label for="edit-title">Başlık</label>
+                <input type="text" id="edit-title" name="title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-content">İçerik</label>
+                <textarea id="edit-content" name="content" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-image">Görsel</label>
+                <input type="file" 
+                       id="edit-image" 
+                       name="image" 
+                       accept="image/jpeg,image/png,image/gif"
+                       onchange="validateFile(this)">
+                <div class="upload-info">
+                    <div class="info-content">
+                        <h4>Dosya Yükleme Bilgileri:</h4>
+                        <ul>
+                            <li>İzin verilen formatlar: JPG, PNG, GIF</li>
+                            <li>Maksimum dosya boyutu: 5MB</li>
+                            <li>Önerilen boyutlar: 1000x1000px</li>
+                        </ul>
+                    </div>
+                </div>
+                <small class="help-text">Yeni görsel yüklemezseniz mevcut görsel korunacaktır.</small>
+                <img id="edit-image-preview" src="#" alt="Önizleme" style="max-width: 200px; margin-top: 10px;">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="edit-important" name="important">
+                    Önemli Duyuru
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-expiryDate">Son Tarih</label>
+                <input type="date" id="edit-expiryDate" name="expiryDate">
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+                <button type="button" class="btn btn-secondary close">İptal</button>
+            </div>
+        </form>
+    </div>
+</div> 

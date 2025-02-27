@@ -1,0 +1,78 @@
+<%
+let currentPage = 'about';
+let pageSpecificCSS = 'pages/about';
+%>
+<%- include('../partials/header') %>
+
+<!-- Hero Section -->
+<section class="page-hero about-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Hakkımızda</h1>
+        <p>Eğitimde mükemmelliği hedefleyen yolculuğumuz</p>
+    </div>
+</section>
+
+<!-- Vizyon & Misyon -->
+<section class="vision-mission">
+    <div class="container">
+        <div class="vm-grid">
+            <div class="vm-card vision">
+                <div class="vm-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h2>Vizyonumuz</h2>
+                <p>Eğitimde yenilikçi yaklaşımlarla, öğrencilerimizin potansiyellerini en üst düzeye çıkararak, geleceğin başarılı bireylerini yetiştirmek ve Türkiye'nin önde gelen eğitim kurumları arasında yer almak.</p>
+            </div>
+            <div class="vm-card mission">
+                <div class="vm-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h2>Misyonumuz</h2>
+                <p>Modern eğitim teknolojileri ve uzman kadromuzla, öğrencilerimizin akademik başarılarını en üst seviyeye taşırken, onların sosyal ve kültürel gelişimlerine de katkıda bulunmak.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Değerlerimiz -->
+<section class="values">
+    <div class="container">
+        <div class="section-title">
+            <h2>Temel Değerlerimiz</h2>
+            <p>Eğitim anlayışımızı şekillendiren ilkelerimiz</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3>Öğrenci Odaklılık</h3>
+                <p>Her öğrencimizin bireysel ihtiyaçlarını göz önünde bulundurarak, kişiye özel eğitim planları oluşturuyoruz.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Sürekli Gelişim</h3>
+                <p>Eğitim metodlarımızı ve içeriklerimizi sürekli güncelleyerek en etkili öğrenme deneyimini sunuyoruz.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Güven ve Şeffaflık</h3>
+                <p>Velilerimizle sürekli iletişim halinde kalarak, öğrencilerimizin gelişimini şeffaf bir şekilde paylaşıyoruz.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3>Kalite</h3>
+                <p>Eğitimde en yüksek standartları hedefleyerek, öğrencilerimize en iyi öğrenme ortamını sağlıyoruz.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/footer') %> 

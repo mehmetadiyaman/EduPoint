@@ -1,0 +1,70 @@
+<%- contentFor('title') %>Dashboard
+
+<%- contentFor('body') %>
+<div class="content-wrapper">
+    <!-- İstatistik Kartları -->
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <div class="stat-icon courses">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Kurslar</h3>
+                <p><%= courseCount %></p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon teachers">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Öğretmenler</h3>
+                <p><%= teacherCount %></p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon announcements">
+                <i class="fas fa-bullhorn"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Duyurular</h3>
+                <p><%= announcementCount %></p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon gallery">
+                <i class="fas fa-images"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Galeri</h3>
+                <p><%= galleryCount %></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hızlı Erişim Menüsü -->
+    <div class="quick-actions">
+        <h2>Hızlı İşlemler</h2>
+        <div class="action-buttons">
+            <a href="/admin/courses" class="action-btn">
+                <i class="fas fa-plus"></i>
+                Yeni Kurs Ekle
+            </a>
+            <a href="/admin/teachers" class="action-btn">
+                <i class="fas fa-plus"></i>
+                Yeni Öğretmen Ekle
+            </a>
+            <a href="/admin/announcements" class="action-btn">
+                <i class="fas fa-plus"></i>
+                Yeni Duyuru Ekle
+            </a>
+            <a href="/admin/gallery" class="action-btn">
+                <i class="fas fa-plus"></i>
+                Yeni Resim Ekle
+            </a>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,169 @@
+<%- contentFor('title') %>Ana Sayfa
+
+<%- contentFor('body') %>
+<%
+let currentPage = 'home';
+let pageSpecificCSS = 'pages/index';
+%>
+<%- include('../partials/header') %>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="animate-text">Geleceğinizi Bizimle Şekillendirin</h1>
+            <p class="animate-text delay-1">Uzman kadromuz ve modern eğitim yöntemlerimizle başarıya giden yolda yanınızdayız</p>
+            <div class="hero-stats animate-text delay-2">
+                <div class="stat-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="stat-label">YKS</span>
+                    <p class="stat-desc">Üniversite Hazırlık</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-school"></i>
+                    <span class="stat-label">LGS</span>
+                    <p class="stat-desc">Lise Hazırlık</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-language"></i>
+                    <span class="stat-label">YDS</span>
+                    <p class="stat-desc">Dil Sınavı</p>
+                </div>
+            </div>
+            <div class="hero-buttons animate-text delay-3">
+                <a href="/courses" class="btn btn-primary" onclick="scrollToCourses(event)">
+                    <i class="fas fa-graduation-cap"></i>
+                    Kurslarımızı Keşfedin
+                </a>
+                <a href="/contact" class="btn btn-secondary" onclick="scrollToContact(event)">
+                    <i class="fas fa-phone-alt"></i>
+                    Ücretsiz Danışmanlık
+                </a>
+            </div>
+        </div>
+        <div class="hero-image animate-image">
+            <img src="/images/images.jpeg" alt="Öğrenciler" class="main-image">
+            <div class="floating-images">
+                <img src="/images/lgs.jpg" alt="lgs" class="float-1">
+                <img src="/images/yks.png" alt="yks" class="float-2">
+                <img src="/images/yds.png" alt="yds" class="float-3">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Güncel Duyurular -->
+<section class="announcements-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Güncel Duyurular</h2>
+            <p>En son haberler ve etkinlikler</p>
+        </div>
+        <div class="announcements-grid">
+            <% announcements.forEach(announcement => { %>
+                <div class="announcement-card">
+                    <div class="announcement-image">
+                        <img src="<%= announcement.image %>" alt="<%= announcement.title %>">
+                        <div class="announcement-badge">
+                            <span><%= announcement.category %></span>
+                        </div>
+                    </div>
+                    <div class="announcement-content">
+                        <div class="announcement-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span><%= announcement.date %></span>
+                        </div>
+                        <h3><%= announcement.title %></h3>
+                        <div class="announcement-text">
+                            <p>
+                                <%= announcement.content || announcement.description || 'Detaylı bilgi için iletişime geçebilirsiniz.' %>
+                            </p>
+                        </div>
+                        <div class="announcement-footer">
+                            <a href="/contact" class="contact-btn">
+                                <i class="fas fa-envelope"></i>
+                                İletişime Geç
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
+
+<!-- Öne Çıkan Özellikler -->
+<section class="features">
+    <div class="container">
+        <div class="section-title">
+            <h2>Neden Biz?</h2>
+            <p>Eğitimde fark yaratan özelliklerimizle öğrencilerimizin başarısına odaklanıyoruz</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Uzman Eğitim Kadrosu</h3>
+                <p>Alanında uzman, deneyimli ve sürekli gelişen öğretmen kadromuzla kaliteli eğitim sunuyoruz.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users"></i>
+                <h3>Küçük Sınıf Mevcudu</h3>
+                <p>Maksimum 12 kişilik sınıflarımızla her öğrencimize özel ilgi gösteriyoruz.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Sürekli Ölçme-Değerlendirme</h3>
+                <p>Haftalık deneme sınavları ve konu tarama testleriyle gelişimi takip ediyoruz.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-book-reader"></i>
+                <h3>Modern Eğitim Teknolojileri</h3>
+                <p>Akıllı tahta, online eğitim platformu ve mobil uygulamamızla her an yanınızdayız.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stat-number" data-count="500">0</div>
+                <div class="stat-label">Mezun Öğrenci</div>
+                <div class="stat-description">Her yıl yüzlerce öğrencimiz hedeflerine ulaşıyor</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stat-number" data-count="25">0</div>
+                <div class="stat-label">Uzman Öğretmen</div>
+                <div class="stat-description">Deneyimli ve alanında uzman eğitim kadrosu</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-number" data-count="15">0</div>
+                <div class="stat-label">Farklı Branş</div>
+                <div class="stat-description">Tüm derslerde kapsamlı eğitim imkanı</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-number" data-count="95">0</div>
+                <div class="stat-label">Başarı Oranı</div>
+                <div class="stat-description">Hedef odaklı çalışma sistemi</div>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include('../partials/footer') %> 

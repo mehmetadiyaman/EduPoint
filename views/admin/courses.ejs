@@ -1,0 +1,173 @@
+<%- contentFor('title') %>Kurs Yönetimi
+
+<%- contentFor('body') %>
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="header-left">
+            <h2>Kurs Listesi</h2>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-primary" data-modal="addCourseModal">
+                <i class="fas fa-plus"></i> Yeni Kurs Ekle
+            </button>
+        </div>
+    </div>
+
+    <div class="courses-grid">
+        <% courses.forEach(course => { %>
+            <div class="course-card" data-id="<%= course._id %>">
+                <div class="course-image">
+                    <img src="<%= course.image %>" alt="<%= course.name %>">
+                    <div class="course-overlay">
+                        <div class="course-actions">
+                            <button class="btn btn-edit" onclick="editCourse('<%= course._id %>')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-delete" onclick="deleteCourse('<%= course._id %>')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-info">
+                    <h3><%= course.name %></h3>
+                    <p class="category"><i class="fas fa-tag"></i> <%= course.category %></p>
+                    <% if (course.duration) { %>
+                        <p class="duration"><i class="fas fa-clock"></i> <%= course.duration %> Saat</p>
+                    <% } %>
+                    <% if (course.price) { %>
+                        <p class="price"><i class="fas fa-lira-sign"></i> <%= course.price.toLocaleString('tr-TR') %> TL</p>
+                    <% } %>
+                    <p class="description"><%= course.description.substring(0, 100) %>...</p>
+                    
+                    <% if (course.features && course.features.length > 0) { %>
+                        <div class="course-features">
+                            <h4>Özellikler:</h4>
+                            <ul>
+                                <% course.features.slice(0, 3).forEach(feature => { %>
+                                    <li><i class="fas fa-check"></i> <%= feature %></li>
+                                <% }) %>
+                                <% if (course.features.length > 3) { %>
+                                    <li>... ve <%= course.features.length - 3 %> özellik daha</li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<!-- Kurs Ekleme Modal -->
+<div id="addCourseModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Yeni Kurs Ekle</h2>
+            <span class="close">&times;</span>
+        </div>
+        <form id="addCourseForm" action="/admin/courses" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Kurs Adı</label>
+                <input type="text" id="name" name="name" required minlength="3">
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Açıklama</label>
+                <textarea id="description" name="description" required minlength="10"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Kategori</label>
+                <select id="category" name="category" required>
+                    <option value="">Kategori Seçin</option>
+                    <option value="YKS">YKS</option>
+                    <option value="LGS">LGS</option>
+                    <option value="YDS">YDS</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="duration">Süre (Saat)</label>
+                <input type="number" id="duration" name="duration" min="1">
+                <small>Opsiyonel</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="features">Kurs Özellikleri (Her satıra bir özellik yazın)</label>
+                <textarea id="features" name="features" rows="4" 
+                    placeholder="Örn:&#10;Deneme Sınavları&#10;Online Destek&#10;Video Dersler"></textarea>
+                <small>Her satıra bir özellik yazın. Boş bırakırsanız varsayılan özellikler gösterilecektir.</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Resim</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <img id="image-preview" src="#" alt="Önizleme" style="display: none; max-width: 200px; margin-top: 10px;">
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+                <button type="button" class="btn btn-secondary close">İptal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Kurs Düzenleme Modal -->
+<div id="editCourseModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Kurs Düzenle</h2>
+            <span class="close">&times;</span>
+        </div>
+        <form id="editCourseForm" enctype="multipart/form-data">
+            <input type="hidden" id="edit-id" name="id">
+            
+            <div class="form-group">
+                <label for="edit-name">Kurs Adı</label>
+                <input type="text" id="edit-name" name="name" required minlength="3">
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-description">Açıklama</label>
+                <textarea id="edit-description" name="description" required minlength="10"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-category">Kategori</label>
+                <select id="edit-category" name="category" required>
+                    <option value="">Kategori Seçin</option>
+                    <option value="YKS">YKS</option>
+                    <option value="LGS">LGS</option>
+                    <option value="YDS">YDS</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-duration">Süre (Saat)</label>
+                <input type="number" id="edit-duration" name="duration" min="1">
+                <small>Opsiyonel</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-features">Kurs Özellikleri</label>
+                <textarea id="edit-features" name="features" rows="4"></textarea>
+                <small>Her satıra bir özellik yazın</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-image">Resim</label>
+                <input type="file" id="edit-image" name="image" accept="image/*">
+                <small>Yeni resim yüklemezseniz mevcut resim korunacaktır.</small>
+                <img id="edit-image-preview" src="#" alt="Önizleme" style="max-width: 200px; margin-top: 10px;">
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+                <button type="button" class="btn btn-secondary close">İptal</button>
+            </div>
+        </form>
+    </div>
+</div> 

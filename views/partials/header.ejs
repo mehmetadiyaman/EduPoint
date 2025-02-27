@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kurs - Doğubeyazıt</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/svgg.jpg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/svgg.jpg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/svgg.jpg" />
+    <link rel="shortcut icon" href="/images/svgg.jpg" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- Sayfa özel CSS -->
+    <% if (typeof pageSpecificCSS !== 'undefined') { %>
+    <link rel="stylesheet" href="/css/<%= pageSpecificCSS %>.css" />
+    <% } %>
+  </head>
+  <body data-page="<%= currentPage %>">
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header-container">
+        <div class="logo">
+          <a href="/">
+            <img src="/images/logo.png" alt=" Kurs" class="logo-img" />
+            <div class="logo-text">
+              <span class="branch-name">
+                <i class="fas fa-map-marker-alt location-icon"></i>
+                Doğubeyazıt
+              </span>
+            </div>
+          </a>
+        </div>
+
+        <nav class="main-nav">
+          <ul>
+            <li>
+              <a
+                href="/"
+                class="<%= typeof currentPage !== 'undefined' && currentPage === 'home' ? 'active' : '' %>"
+                >Ana Sayfa</a
+              >
+            </li>
+            <li>
+              <a
+                href="/about"
+                class="<%= typeof currentPage !== 'undefined' && currentPage === 'about' ? 'active' : '' %>"
+                >Hakkımızda</a
+              >
+            </li>
+            <li>
+              <a
+                href="/courses"
+                class="<%= typeof currentPage !== 'undefined' && currentPage === 'courses' ? 'active' : '' %>"
+                >Kurslar</a
+              >
+            </li>
+            <li>
+              <a
+                href="/teachers"
+                class="<%= typeof currentPage !== 'undefined' && currentPage === 'teachers' ? 'active' : '' %>"
+                >Kadro</a
+              >
+            </li>
+            <li>
+              <a
+                href="/gallery"
+                class="<%= typeof currentPage !== 'undefined' && currentPage === 'gallery' ? 'active' : '' %>"
+                >Galeri</a
+              >
+            </li>
+            <li>
+              <a
+                href="/contact"
+                class="<%= typeof currentPage !== 'undefined' && currentPage === 'contact' ? 'active' : '' %>"
+                >İletişim</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  </body>
+</html>

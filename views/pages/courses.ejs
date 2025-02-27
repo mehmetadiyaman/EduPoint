@@ -1,0 +1,93 @@
+<%
+let currentPage = 'courses';
+let pageSpecificCSS = 'pages/courses';
+%>
+<%- include('../partials/header') %>
+
+<!-- Sayfa Hero -->
+<section class="page-hero courses-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-shapes">
+        <div class="hero-shape"></div>
+        <div class="hero-shape"></div>
+        <div class="hero-shape"></div>
+    </div>
+    <div class="hero-content">
+        <h1 class="animate-text">Kurslarımız</h1>
+        <p class="animate-text delay-1">Hedeflerinize uygun eğitim programını seçin</p>
+    </div>
+</section>
+
+<!-- Kurslar Listesi -->
+<section class="courses-section" id="courses">
+    <div class="container">
+        <div class="courses-wrapper">
+            <% courses.forEach(course => { %>
+                <div class="course-card fixed-width">
+                    <div class="course-image">
+                        <img src="<%= course.image %>" alt="<%= course.name %>">
+                        <div class="course-category">
+                            <span><%= course.category %></span>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3><%= course.name %></h3>
+                        <div class="course-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-clock"></i>
+                                <span><%= course.duration %> Ay</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-users"></i>
+                                <span>Max 12 Öğrenci</span>
+                            </div>
+                        </div>
+                        <div class="course-details">
+                            <div class="course-description-wrapper">
+                                <p class="course-description"><%= course.description %></p>
+                            </div>
+                            <div class="course-features">
+                                <h4>Kurs Özellikleri</h4>
+                                <ul>
+                                    <% if (course.features && course.features.length > 0) { %>
+                                        <% course.features.forEach(feature => { %>
+                                            <li><i class="fas fa-check"></i> <%= feature %></li>
+                                        <% }) %>
+                                    <% } %>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                        <div class="course-footer">
+                            <a href="/contact?course=<%= course.slug %>" class="btn btn-primary">
+                                Başvuru Yap
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
+
+<!-- Section Ayırıcı -->
+<div class="section-divider"></div>
+
+
+
+
+<%- include('../partials/footer') %> 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            const coursesSection = document.getElementById('courses');
+            const headerHeight = document.querySelector('.main-header').offsetHeight;
+            
+            window.scrollTo({
+                top: coursesSection.offsetTop - (headerHeight - 90),
+                behavior: 'smooth'
+            });
+        }, 800);
+    });
+</script> 

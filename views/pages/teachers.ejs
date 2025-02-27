@@ -1,0 +1,74 @@
+<%
+let currentPage = 'teachers';
+let pageSpecificCSS = 'pages/teachers';
+%>
+<%- include('../partials/header') %>
+
+<!-- Sayfa Hero -->
+<section class="page-hero teachers-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Kadromuz</h1>
+        <p>Alanında uzman ve deneyimli eğitim kadromuz</p>
+    </div>
+</section>
+
+<!-- Öğretmenler Listesi -->
+<section class="teachers" id="teacherCards">
+    <div class="container">
+        <div class="teachers-grid">
+            <% teachers.forEach(teacher => { %>
+                <div class="teacher-card">
+                    <div class="teacher-image">
+                        <img src="<%= teacher.image %>" alt="<%= teacher.name %>">
+                        <div class="teacher-overlay">
+                            <div class="teacher-social">
+                                <% if (teacher.socialMedia?.linkedin) { %>
+                                    <a href="<%= teacher.socialMedia.linkedin %>" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                <% } %>
+                                <% if (teacher.socialMedia?.twitter) { %>
+                                    <a href="<%= teacher.socialMedia.twitter %>" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <% } %>
+                                <% if (teacher.socialMedia?.instagram) { %>
+                                    <a href="<%= teacher.socialMedia.instagram %>" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="teacher-content">
+                        <h3><%= teacher.name %></h3>
+                        <span class="teacher-title"><%= teacher.title %></span>
+                        <span class="teacher-branch"><%= teacher.branch %></span>
+                        <p class="teacher-education"><i class="fas fa-graduation-cap"></i> <%= teacher.education %></p>
+                        <p class="teacher-experience"><i class="fas fa-chalkboard-teacher"></i> <%= teacher.experience %> Yıl Deneyim</p>
+                        <% if (teacher.achievements && teacher.achievements.length > 0) { %>
+                            <div class="teacher-achievements">
+                                <% teacher.achievements.slice(0, 2).forEach(achievement => { %>
+                                    <span class="achievement-tag"><%= achievement %></span>
+                                <% }) %>
+                            </div>
+                        <% } %>
+                        <div class="teacher-description">
+                            <p><%= teacher.description.substring(0, 100) %>...</p>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            const teacherCards = document.getElementById('teacherCards');
+            const headerHeight = document.querySelector('.main-header').offsetHeight;
+            
+            window.scrollTo({
+                top: teacherCards.offsetTop - (headerHeight - 30),
+                behavior: 'smooth'
+            });
+        }, 1000);
+    });
+</script>
+
+<%- include('../partials/footer') %> 

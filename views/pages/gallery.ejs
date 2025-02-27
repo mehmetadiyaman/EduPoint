@@ -1,0 +1,178 @@
+<%
+let currentPage = 'gallery';
+let pageSpecificCSS = 'pages/gallery';
+%>
+<%- include('../partials/header') %>
+
+<!-- Galeri Hero -->
+<section class="page-hero gallery-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Galeri</h1>
+        <p>Eğitim yolculuğumuzdan özel anlar</p>
+    </div>
+</section>
+
+<!-- Galeri Filtreleme -->
+<section class="gallery-filters">
+    <div class="container">
+        <div class="filter-header">
+            <h2>Kategoriler</h2>
+            <p>Fotoğrafları kategorilere göre filtreleyebilirsiniz</p>
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-th-large"></i>
+                Tümü
+            </button>
+            <button class="filter-btn" data-filter="etkinlik">
+                <i class="fas fa-calendar-alt"></i>
+                Etkinlikler
+            </button>
+            <button class="filter-btn" data-filter="ogrenci">
+                <i class="fas fa-user-graduate"></i>
+                Öğrenciler
+            </button>
+            <button class="filter-btn" data-filter="egitim">
+                <i class="fas fa-chalkboard-teacher"></i>
+                Eğitimler
+            </button>
+            <button class="filter-btn" data-filter="okul">
+                <i class="fas fa-school"></i>
+                Okul
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Galeri Grid -->
+<section class="gallery-section">
+    <div class="container">
+        <div class="gallery-masonry">
+            <% if (images && images.length > 0) { %>
+                <% const visibleImages = images.slice(0, 10); %>
+                <% const hiddenImages = images.slice(10); %>
+                
+                <% visibleImages.forEach(image => { %>
+                    <div class="gallery-item" data-category="<%= image.category %>">
+                        <div class="gallery-image">
+                            <img src="<%= image.image %>" alt="Galeri Görsel">
+                            <div class="image-overlay">
+                                <div class="category-badge">
+                                    <i class="fas fa-camera"></i>
+                                    <%= image.category %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+                
+                <% if (hiddenImages.length > 0) { %>
+                    <div id="hiddenImagesContainer" style="display: none;">
+                        <% hiddenImages.forEach(image => { %>
+                            <div class="gallery-item hidden-item" data-category="<%= image.category %>">
+                                <div class="gallery-image">
+                                    <img src="<%= image.image %>" alt="Galeri Görsel">
+                                    <div class="image-overlay">
+                                        <div class="category-badge">
+                                            <i class="fas fa-camera"></i>
+                                            <%= image.category %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                    
+                    <div id="loadMoreContainer" class="load-more-container">
+                        <button class="load-more-btn">
+                            <span>Daha Fazla Fotoğraf</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div id="lightboxModal" class="lightbox-modal">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <button class="nav-btn prev" onclick="changeLightboxImage(-1)">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="nav-btn next" onclick="changeLightboxImage(1)">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="lightbox-content">
+        <img id="lightboxImage" src="" alt="">
+        <div class="lightbox-info">
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxDescription"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hiddenContainer = document.getElementById('hiddenImagesContainer');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
+        const loadMoreBtn = document.querySelector('.load-more-btn');
+        const hiddenItems = document.querySelectorAll('.hidden-item');
+        
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                hiddenContainer.style.display = 'block';
+                const currentFilter = document.querySelector('.filter-btn.active').dataset.filter;
+                
+                hiddenItems.forEach(item => {
+                    if (currentFilter === 'all' || item.dataset.category === currentFilter) {
+                        item.style.opacity = '0';
+                        item.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                        }, 50);
+                    }
+                });
+                
+                loadMoreContainer.style.display = 'none';
+            });
+        }
+
+        // Filtreleme işlevi
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+                
+                // Aktif buton stilini güncelle
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Yumuşak geçiş için opacity kullan
+                galleryItems.forEach(item => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    
+                    setTimeout(() => {
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    }, 300);
+                });
+            });
+        });
+    });
+</script>
+
+<%- include('../partials/footer') %> 

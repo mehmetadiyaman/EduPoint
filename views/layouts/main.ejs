@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="  Kurs Merkezi - YKS, LGS ve YDS kursları. Alanında uzman öğretmenler ve başarı odaklı eğitim sistemi."
+    />
+    <meta
+      name="keywords"
+      content=" kurs ,  dershane,  kurs merkezi,  ,  ,  dershaneleri,  yks kursu,  lgs kursu,  dershane"
+    />
+    <meta name="author" content="  Kurs Merkezi" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.kursMerkezi.com/" />
+    <meta property="og:title" content="  Kurs Merkezi" />
+    <meta
+      property="og:description"
+      content="'ın en başarılı kurs merkezi. YKS, LGS ve YDS kursları için hemen başvurun."
+    />
+    <meta property="og:image" content="/images/logo.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.kursMerkezi.com/" />
+    <meta property="twitter:title" content="  Kurs Merkezi" />
+    <meta
+      property="twitter:description"
+      content="'ın en başarılı kurs merkezi. YKS, LGS ve YDS kursları için hemen başvurun."
+    />
+    <meta property="twitter:image" content="/images/logo.png" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <%- typeof style !== 'undefined' ? style : '' %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+
+    <!-- Flash Messages -->
+    <% if(typeof messages !== 'undefined' && messages.success) { %>
+    <div class="alert alert-success"><%= messages.success %></div>
+    <% } %> <% if(typeof messages !== 'undefined' && messages.error) { %>
+    <div class="alert alert-error"><%= messages.error %></div>
+    <% } %>
+
+    <!-- Page Content -->
+    <%- body %>
+
+    <!-- Main JS -->
+    <script src="/js/main.js"></script>
+    <%- typeof script !== 'undefined' ? script : '' %>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "  Kurs Merkezi",
+        "description": "'ın en başarılı kurs merkezi. YKS, LGS ve YDS kursları.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Ahmedi Hani Mah. Suat Sokak No:10",
+          "addressLocality": "",
+          "addressRegion": "",
+          "postalCode": "04400",
+          "addressCountry": "TR"
+        },
+        "telephone": "+905526366151",
+        "url": "https://www.kurs.com",
+        "sameAs": [
+          "https://facebook.com/kurs",
+          "https://instagram.com/kurs",
+          "https://youtube.com/kurs"
+        ]
+      }
+    </script>
+  </body>
+</html>
